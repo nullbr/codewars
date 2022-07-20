@@ -1,28 +1,24 @@
 # Test if number is prime
 def isPrime(num)
-  return false if num <= 1
+  if num <= 1 || num == 4
+    false
+  elsif num <= 3 
+    true
+  elsif (num % 2).zero? || (num % 3).zero?
+    false
+  else
+    count = 5
+    primes = [2, 3]
+    while count < Math.sqrt(num)
+      unless primes.any?{ |prime| (count % prime).zero? }
+        primes << count
+        return false if (num % primes[-1]).zero?
+      end
 
-  count = 1
-  prime = 6 * count + 1
-  while prime < num
-    if num <= 3
-      break
-    elsif count <= 6
-      if (num % (6 * count + 1)).zero? || (num % (6 * count - 1)).zero?
-        prime = false
-        break
-      end
-    else
-      if (num % (count**2 + count + 41)).zero?
-        prime = false
-        break
-      end
+      count += 1
     end
-
-    break if count > 100000
-    count += 1
+    true
   end
-  prime
 end
 
 puts isPrime(958_297)
@@ -33,6 +29,6 @@ puts isPrime(999)
 puts isPrime(-7)
 puts isPrime(2)
 puts isPrime(3)
-puts isPrime(5)
 puts isPrime(457)
 puts isPrime(39_229)
+puts isPrime(1066218409)
